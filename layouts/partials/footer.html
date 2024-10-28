@@ -27,20 +27,42 @@
   <div
     class="{{ $footerWidth }} hx-mx-auto hx-flex hx-justify-center hx-py-12 hx-pl-[max(env(safe-area-inset-left),1.5rem)] hx-pr-[max(env(safe-area-inset-right),1.5rem)] hx-text-gray-600 dark:hx-text-gray-400 md:hx-justify-start"
   >
-    <div class="hx-flex hx-w-full hx-flex-col hx-items-center sm:hx-items-start">
-      {{- if (.Site.Params.footer.displayPoweredBy | default true) }}<div class="hx-font-semibold">{{ template "theme-credit" $poweredBy }}</div>{{ end }}
-      {{- if .Site.Params.footer.displayCopyright }}<div class="hx-mt-6 hx-text-xs">{{ $copyright | markdownify }}</div>{{ end }}
-    </div>
+		<div class="hx-flex hx-w-full hx-flex-col hx-items-center sm:hx-items-start">
+		 {{- if (.Site.Params.footer.displayPoweredBy | default true) }}
+			 <div class="hx-font-semibold">
+				 {{ template "theme-credit" (dict 
+					 "text" (.Site.Params.footer.poweredBy.text | default "Powered by Hextra")
+					 "link" .Site.Params.footer.poweredBy.link
+				 ) }}
+			 </div>
+		 {{ end }}
+		 {{- if .Site.Params.footer.displayCopyright }}
+			 <div class="hx-mt-6 hx-text-xs">{{ $copyright | markdownify }}</div>
+		 {{ end }}
+		</div>
   </div>
 </footer>
 
-{{- define "theme-credit" -}}
-  <a class="hx-flex hx-text-sm hx-items-center hx-gap-1 hx-text-current" target="_blank" rel="noopener noreferrer" title="Hextra GitHub Homepage" href="https://github.com/imfing/hextra">
-    <span>
-      {{- . | markdownify -}}
-      {{- if strings.Contains . "Hextra" -}}
-        {{- partial "utils/icon.html" (dict "name" "hextra" "attributes" `height=1em class="hx-inline-block ltr:hx-ml-1 rtl:hx-mr-1 hx-align-[-2.5px]"`) -}}
-      {{- end -}}
-    </span>
-  </a>
-{{- end -}}
+{{ define "theme-credit" }}
+ {{ if .link }}
+   <a class="hx-flex hx-text-sm hx-items-center hx-gap-1 hx-text-current" 
+      target="_blank" 
+      rel="noopener noreferrer" 
+      title="{{ T "poweredBy" }}" 
+      href="{{ .link }}">
+     <span>
+       {{- T "poweredBy" | markdownify -}}
+       {{- if strings.Contains (T "poweredBy") "Hextra" -}}
+         {{- partial "utils/icon.html" (dict "name" "hextra" "attributes" `height=1em class="hx-inline-block ltr:hx-ml-1 rtl:hx-mr-1 hx-align-[-2.5px]"`) -}}
+       {{- end -}}
+     </span>
+   </a>
+ {{ else }}
+   <span class="hx-text-sm">
+     {{- T "poweredBy" | markdownify -}}
+     {{- if strings.Contains (T "poweredBy") "Hextra" -}}
+       {{- partial "utils/icon.html" (dict "name" "hextra" "attributes" `height=1em class="hx-inline-block ltr:hx-ml-1 rtl:hx-mr-1 hx-align-[-2.5px]"`) -}}
+     {{- end -}}
+   </span>
+ {{ end }}
+{{ end }}
