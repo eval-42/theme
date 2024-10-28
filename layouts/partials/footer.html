@@ -31,7 +31,7 @@
       {{- if (.Site.Params.footer.displayPoweredBy | default true) }}
         <div class="hx-font-semibold">
           {{ template "theme-credit" (dict
-            "text" (.Site.Params.footer.poweredBy.text | default "Powered by Hextra")
+            "text" ($poweredBy | markdownify)
             "link" .Site.Params.footer.poweredBy.link
             )
           }}
