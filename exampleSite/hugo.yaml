@@ -96,6 +96,10 @@ menu:
       weight: 3
 
 params:
+  customJS:
+    - code: |
+        console.log('This is inline JavaScript');
+        // More JavaScript code here
   description: Modern, responsive, batteries-included Hugo theme for creating beautiful static websites.
 
   navbar:

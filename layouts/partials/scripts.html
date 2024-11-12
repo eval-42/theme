@@ -13,6 +13,25 @@
 {{- end -}}
 <script defer src="{{ $scripts.RelPermalink }}" integrity="{{ $scripts.Data.Integrity }}"></script>
 
+{{/* Custom Scripts from Config */}}
+{{- with site.Params.customJS -}}
+  {{- range . -}}
+    {{- if .path -}}
+      {{- $customJS := resources.Get .path -}}
+      {{- if $customJS -}}
+        {{- if hugo.IsProduction -}}
+          {{- $customJS = $customJS | minify | fingerprint -}}
+        {{- end -}}
+        <script defer{{ with .async }} async{{ end }}{{ with .defer }} defer{{ end }} src="{{ $customJS.RelPermalink }}" integrity="{{ $customJS.Data.Integrity }}"></script>
+      {{- end -}}
+    {{- end -}}
+    {{- if .code -}}
+      <script{{ with .async }} async{{ end }}{{ with .defer }} defer{{ end }}>
+        {{- .code | safeJS -}}
+      </script>
+    {{- end -}}
+  {{- end -}}
+{{- end -}}
 
 {{/* Search */}}
 {{- if (site.Params.search.enable | default true) -}}
