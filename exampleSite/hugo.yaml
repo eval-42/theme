@@ -103,7 +103,7 @@ params:
   description: Modern, responsive, batteries-included Hugo theme for creating beautiful static websites.
 
   navbar:
-    displayTitle: true
+    displayTitle: "Custom Title"
     displayLogo: true
     logo:
       path: images/logo.svg
