@@ -24,7 +24,7 @@
       {{- end }}
       {{- $displayTitle := .Site.Params.navbar.displayTitle -}}
       {{- if $displayTitle -}}
-        <span class="hx-mx-2 hx-font-extrabold hx-inline hx-select-none" title="{{ .Site.Title }}">
+        <span class="hx-mx-2 hx-font-bold hx-font-mono hx-inline hx-select-none" title="{{ .Site.Title }}">
           {{- if eq (printf "%T" $displayTitle) "string" -}}
             {{- $displayTitle -}}
           {{- else -}}

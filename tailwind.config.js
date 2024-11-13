@@ -78,6 +78,9 @@ module.exports = {
       }
     },
     extend: {
+       fontFamily: {
+        mono: ['"Source Code Pro"', 'ui-monospace', 'SFMono-Regular', 'Menlo', 'Monaco', 'Consolas', 'monospace'],
+      },
       colors: {
         dark: '#111'
       }
